@@ -1,0 +1,41 @@
+ Files Created
+
+  amavisd-plugin/
+  ├── AfterDark/Amavis/ThreatIntel.pm    # Main Perl plugin module (~700 lines)
+  ├── conf.d/99-afterdark-threatintel.conf  # Configuration template
+  ├── install.sh                          # Installation script
+  ├── README.md                           # Documentation
+  └── README                              # Original request
+
+  Features
+
+  | Feature           | DNSScience       | BetterPhish          |
+  |-------------------|------------------|----------------------|
+  | IP checks         | DNSBL + API      | -                    |
+  | URL/Domain checks | Reputation API   | Phishing database    |
+  | File hash checks  | Threat intel API | Malware database     |
+  | AI validation     | -                | ML-powered detection |
+
+  Key Capabilities
+
+  - DNS-based lookups: Standard DNSBL format (x.x.x.x.dnsbl.dnsscience.io)
+  - REST API lookups: Full threat intel from both services
+  - Configurable actions: REJECT, QUARANTINE, TAG, SCORE, PASS
+  - Caching: Built-in caching to minimize API calls
+  - Headers: Adds X-AfterDark-* headers for downstream processing
+  - Async email submission: Contributes to betterphish community database
+
+  Quick Install
+
+  cd amavisd-plugin
+  sudo ./install.sh
+
+  # Edit config and add API keys
+  sudo nano /etc/amavisd/conf.d/99-afterdark-threatintel.conf
+
+  # Add to amavisd.conf:
+  # include('/etc/amavisd/conf.d/99-afterdark-threatintel.conf');
+
+  sudo systemctl restart amavisd
+
+─────
